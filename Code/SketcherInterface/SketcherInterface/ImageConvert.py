@@ -1,6 +1,3 @@
-#def samplefunc():
-#    print("I am inside a func")
-
 from PIL import Image
 from PIL import ImageFilter
 from PIL import ImageOps
@@ -21,4 +18,3 @@ def drawing(infile, outfile, blur=25, alpha=1.0):
             b = im2.getpixel((x, y))
             im1.putpixel((x, y), dodge(a, b, alpha))
     im1.save(outfile)
-    
