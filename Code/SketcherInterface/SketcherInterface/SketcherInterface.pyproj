@@ -22,6 +22,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ImageConvert.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="SketcherInterface.py" />
   </ItemGroup>
   <PropertyGroup>
