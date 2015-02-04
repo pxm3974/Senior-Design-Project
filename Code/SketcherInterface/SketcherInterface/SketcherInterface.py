@@ -1,3 +1,8 @@
 #This is our main
 import ImageConvert
-ImageConvert.drawing("logo.png", "logoModified.png")
+import tkinter
+#ImageConvert.drawing("logo.png", "logoModified.png")
+
+top = tkinter.Tk()
+
+top.mainloop()
