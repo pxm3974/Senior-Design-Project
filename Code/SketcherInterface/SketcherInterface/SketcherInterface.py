@@ -1,3 +1,3 @@
+#This is our main
 import ImageConvert
-print('Hello World')
-ImageConvert.drawing("image.png", "imageDone.png")
+ImageConvert.drawing("logo.png", "logoModified.png")
