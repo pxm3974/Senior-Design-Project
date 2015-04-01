@@ -14,7 +14,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import javax.swing.ImageIcon;
+//import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
@@ -33,7 +33,9 @@ public class SidewalkSketcherGUI extends JFrame {
     ImageFilter myFilter= new ImageFilter();
     PrimaryColorChooser primaryColor= new PrimaryColorChooser();
     SecondaryColorChooser SecondaryColor= new SecondaryColorChooser();
+   CropImage ImageCrop= new CropImage();
     ClearWindow Clear= new ClearWindow();
+    Resize myResize= new Resize();
     public static BufferedImage [] imageDB=new BufferedImage[1];
     public static int [] ColorArray= new int [2];
 
@@ -96,9 +98,10 @@ public class SidewalkSketcherGUI extends JFrame {
         
         JButton resize = new JButton("Resize");
         panel2.add(resize);
-        //resize.addActionListener(this);
+        resize.addActionListener(myResize);
         JButton crop = new JButton("Crop Image");
         panel2.add(crop);
+        crop.addActionListener((ActionListener)ImageCrop);
         JButton chooseColor1 = new JButton("Choose Primary Color");
         panel2.add(chooseColor1);
         chooseColor1.addActionListener((ActionListener) primaryColor);
@@ -125,9 +128,9 @@ public class SidewalkSketcherGUI extends JFrame {
         
         panel2.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 
-        panel1.setSize(500, 500);
+        //panel1.setSize(500, 500);
 
-        myframe.setSize(600, 600);
+       // myframe.setSize(600, 600);
         myframe.pack();
         myframe.setResizable(false);
         myframe.setDefaultCloseOperation(EXIT_ON_CLOSE);

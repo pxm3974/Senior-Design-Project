@@ -30,7 +30,7 @@ public class FileBrowser implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //SidewalkSketcherGUI myGUI= new SidewalkSketcherGUI();
         JFileChooser chooser = new JFileChooser("/Users/nibasabin/Desktop");
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF Images", "jpg", "gif", "jpeg");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF Images", "jpg", "gif", "jpeg","png");
         chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(null);
         if (returnVal == JFileChooser.APPROVE_OPTION) {

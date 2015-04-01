@@ -14,6 +14,8 @@ import javax.swing.ImageIcon;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import java.awt.Color;
+import java.io.File;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -21,7 +23,7 @@ import java.awt.Color;
  */
 public class ImageFilter implements ActionListener {
 
-    final static int THERSOLD = 15;
+    final static int THERSOLD = 20;
     
 
     public static BufferedImage Filter(BufferedImage picture,int Color1,int Color2) {
@@ -61,10 +63,13 @@ public class ImageFilter implements ActionListener {
 
                 if (abs(ta - ba) < THERSOLD) {
                     picture.setRGB(y, x, SidewalkSketcherGUI.ColorArray[1]);
+               
 //16777215
                 } else {
 
                     picture.setRGB(y, x, SidewalkSketcherGUI.ColorArray[0]);
+                    System.out.println("( " + y + ","+x+ " )");
+                    //System.out.println(" y coordinate"+x);
                 }
 
             }
@@ -75,8 +80,39 @@ public class ImageFilter implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        
+        
+                
+                try {
+    // retrieve image
+    BufferedImage bi = SidewalkSketcherGUI.imageDB[0];
+    File outputfile = new File("/Users/nibasabin/Desktop/lamo2.bmp");
+    System.out.println("file should be here");
+    ImageIO.write(bi, "bmp", outputfile);
+} 
+        catch (Exception f){
+
+
+}
 
         SidewalkSketcherGUI.imageDB[0]=Filter(SidewalkSketcherGUI.imageDB[0],SidewalkSketcherGUI.ColorArray[0],SidewalkSketcherGUI.ColorArray[1]);
+       
+        
+                try {
+    // retrieve image
+    BufferedImage bi = SidewalkSketcherGUI.imageDB[0];
+    File outputfile = new File("/Users/nibasabin/Desktop/lamo.bmp");
+    System.out.println("file should be here");
+    ImageIO.write(bi, "bmp", outputfile);
+} 
+        catch (Exception f){
+
+
+}
+
+        
+        
+        
         ImageIcon imageIcon = new ImageIcon(SidewalkSketcherGUI.imageDB[0]);
         JLabel label = new JLabel(imageIcon);
 
