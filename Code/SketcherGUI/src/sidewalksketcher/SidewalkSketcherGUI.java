@@ -33,6 +33,7 @@ public class SidewalkSketcherGUI extends JFrame {
     ImageFilter myFilter= new ImageFilter();
     PrimaryColorChooser primaryColor= new PrimaryColorChooser();
     SecondaryColorChooser SecondaryColor= new SecondaryColorChooser();
+    SendFile myFile= new SendFile();
    CropImage ImageCrop= new CropImage();
     ClearWindow Clear= new ClearWindow();
     Resize myResize= new Resize();
@@ -55,8 +56,8 @@ public class SidewalkSketcherGUI extends JFrame {
         loadPicture = new JMenuItem("Load Picture");
         File.add(loadPicture);
         loadPicture.addActionListener(myBrowser);
-        savePicture = new JMenuItem("Save Picture");
-        File.add(savePicture);
+      //  savePicture = new JMenuItem("Save Picture");
+       // File.add(savePicture);
         // savePicture.addActionListener(this);
         exit = new JMenuItem("Exit");
         File.add(exit);
@@ -123,7 +124,9 @@ public class SidewalkSketcherGUI extends JFrame {
         panel2.add(empty5);
 
         JButton complete = new JButton("Send to SidewalkSketcher");
+        complete.addActionListener((ActionListener)myFile);
         complete.setBackground(Color.blue);
+        
         panel2.add(complete);
         
         panel2.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
