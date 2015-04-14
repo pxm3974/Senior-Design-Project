@@ -8,16 +8,22 @@ package sidewalksketcher;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+
 import static java.lang.Math.abs;
+
 //import static javafx.scene.paint.Color.color;
 import javax.swing.ImageIcon;
+
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
+
 import javax.swing.JLabel;
+
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.imageio.ImageIO;
 
 /**
@@ -86,7 +92,8 @@ public class ImageFilter implements ActionListener {
         try {
             // retrieve image
             BufferedImage bi = SidewalkSketcherGUI.imageDB[0];
-            File outputfile = new File("/Users/nibasabin/Desktop/lamo2.bmp");
+            String currentDirectory = System.getProperty(("user.dir"));
+            File outputfile = new File(currentDirectory+"/potrace/nibasabin.bmp");
             System.out.println("file should be here");
             ImageIO.write(bi, "bmp", outputfile);
         } catch (Exception f) {

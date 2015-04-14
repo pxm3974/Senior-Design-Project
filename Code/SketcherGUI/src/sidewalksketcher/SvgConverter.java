@@ -18,7 +18,7 @@ public class SvgConverter {
     public static void main(String[] args) throws IOException {
 
         String currentDirectory = System.getProperty(("user.dir"));
-        System.out.println("lalala"+currentDirectory);
+      //  System.out.println("lalala"+currentDirectory);
         String path = "cd " + currentDirectory + "/potrace\n./potrace -s -o apple.svg lamo.bmp";
         Process p = Runtime.getRuntime().exec(new String[]{"bash", "-c", path});
 
