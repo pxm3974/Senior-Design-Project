@@ -57,9 +57,6 @@ public static BufferedImage imageToBufferedImage(Image im) {
         
         
         
-        
-        
-        
         SidewalkSketcherGUI.imageDB[0]=Filter(SidewalkSketcherGUI.imageDB[0],SidewalkSketcherGUI.ColorArray[0],SidewalkSketcherGUI.ColorArray[1]);
        // ImageIcon imageIcon = new ImageIcon(SidewalkSketcherGUI.imageDB[0]);
         //JLabel label = new JLabel(imageIcon);

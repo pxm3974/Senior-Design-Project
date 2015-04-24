@@ -34,7 +34,9 @@ public class SidewalkSketcherGUI extends JFrame {
     PrimaryColorChooser primaryColor= new PrimaryColorChooser();
     SecondaryColorChooser SecondaryColor= new SecondaryColorChooser();
     SendFile myFile= new SendFile();
+    
    CropImage ImageCrop= new CropImage();
+   
     ClearWindow Clear= new ClearWindow();
     Resize myResize= new Resize();
     public static BufferedImage [] imageDB=new BufferedImage[1];
@@ -100,9 +102,13 @@ public class SidewalkSketcherGUI extends JFrame {
         JButton resize = new JButton("Resize");
         panel2.add(resize);
         resize.addActionListener(myResize);
+        
+        
         JButton crop = new JButton("Crop Image");
         panel2.add(crop);
         crop.addActionListener((ActionListener)ImageCrop);
+        
+        
         JButton chooseColor1 = new JButton("Choose Primary Color");
         panel2.add(chooseColor1);
         chooseColor1.addActionListener((ActionListener) primaryColor);
