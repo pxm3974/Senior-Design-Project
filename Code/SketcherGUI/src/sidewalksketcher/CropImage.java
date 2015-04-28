@@ -6,157 +6,174 @@
 package sidewalksketcher;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import static javax.swing.JFrame.HIDE_ON_CLOSE;
-import javax.swing.JPanel;
-import java.awt.Rectangle; 
-import java.awt.Robot; 
-import java.awt.event.MouseEvent; 
-import java.awt.event.MouseListener; 
-import java.awt.event.MouseMotionListener; 
-import java.awt.image.BufferedImage; 
-import java.awt.Dimension;
-import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
  * @author nibasabin
  */
-public class CropImage extends JFrame implements ActionListener, MouseListener, MouseMotionListener{
-    
-	 int drag_status=0,c1,c2,c3,c4; 
-	   BufferedImage image = null;
-	   public static ImageIcon imageIcon;
-    
-    public void draggedScreen()throws Exception 
-	{ 
-		int w = c1 - c3; 
-		int h = c2 - c4; 
-		w = w * -1; 
-		h = h * -1; 
-		Robot robot = new Robot(); 
-		BufferedImage img = robot.createScreenCapture(new Rectangle(c1, c2,w,h)); 
-		SidewalkSketcherGUI.imageDB[0]=img;
- 		 
-        ImageIcon imageIcon = new ImageIcon(img);
-        JLabel label = new JLabel(imageIcon);
-       
-        SidewalkSketcherGUI.panel1.add(label);
-        SidewalkSketcherGUI.panel1.removeAll();
-        SidewalkSketcherGUI.panel1.add(label);
-        SidewalkSketcherGUI.panel1.setSize(600, 600);
+public class CropImage extends JPanel implements ActionListener {
 
-        SidewalkSketcherGUI.myframe.setSize(600, 600);
-        SidewalkSketcherGUI.myframe.pack();
-        SidewalkSketcherGUI.myframe.setResizable(false);
-        SidewalkSketcherGUI.myframe.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        SidewalkSketcherGUI.myframe.setVisible(true);
-		
-		System.out.println("Cropped image."); 
-		} 
-	@Override 
-	public void mouseClicked(MouseEvent arg0)
-	 {	}
-	
-	@Override 
-	public void mouseEntered(MouseEvent arg0) {	} 
-	@Override 
-	
-	public void mouseExited(MouseEvent arg0)
-	 {	}
-	
-	@Override 
-	public void mousePressed(MouseEvent arg0) 
-	{ 	repaint(); 
-		c1=arg0.getX(); 
-		c2=arg0.getY(); 
-		} 
-	
-	@Override 
-	public void mouseReleased(MouseEvent arg0) 
-	{ 	repaint(); 
-		if(drag_status==1) 
-		{ 	c3=arg0.getX(); 
-			c4=arg0.getY(); 
-		try 
-		{
-			draggedScreen();
-				 
-		} 
-		catch(Exception e) 
-		{ 
-			e.printStackTrace(); 
-		} 
-		}
-	 }
-	
-	@Override 
-	public void mouseDragged(MouseEvent arg0) 
-	{ 	repaint(); 
-		drag_status=1; 
-		c3=arg0.getX(); 
-		c4=arg0.getY(); 
-	}
-	
-	@Override 
-	public void mouseMoved(MouseEvent arg0) 
-	{ 
-	}
-	 
-	public void paint(Graphics g) 
-	{ 	super.paint(g); 
-		int w = c1 - c3; 
-		int h = c2 - c4; 
-		w = w * -1; 
-		h = h * -1; 
-		if(w<0) 
-			w = w * -1; 
-			g.drawRect(c1, c2, w, h);	
-		} 
+    int x = 0;
+    int y = 0;
+    int width = 0;
+    int height = 0;
+    private static final Color DRAWING_RECT_COLOR = new Color(200, 200, 000);
+    private static final Color DRAWN_RECT_COLOR = Color.green;
 
-    
-  @Override
+    public class Crop extends JPanel {
+
+        private BufferedImage image;
+        private Rectangle rect = null;
+        private boolean drawing = false;
+
+        public Crop() {
+            image = SidewalkSketcherGUI.imageDB[0];
+            MyMouseAdapter mouseAdapter = new MyMouseAdapter();
+            addMouseListener(mouseAdapter);
+            addMouseMotionListener(mouseAdapter);
+        }
+
+        @Override
+        public Dimension getPreferredSize() {
+            if (image != null) {
+                return new Dimension(image.getWidth(), image.getHeight());
+            }
+            return super.getPreferredSize();
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            System.out.println("TEST");
+            super.paintComponent(g);
+            Graphics2D g2 = (Graphics2D) g;
+            if (image != null) {
+                g.drawImage(image, 0, 0, null);
+            }
+            if (rect == null) {
+                return;
+            } else if (drawing) {
+                g2.setColor(DRAWING_RECT_COLOR);
+                g2.draw(rect);
+            } else {
+                g2.setColor(DRAWN_RECT_COLOR);
+                g2.draw(rect);
+            }
+        }
+
+        private class MyMouseAdapter extends MouseAdapter {
+
+            private Point mousePress = null;
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                mousePress = e.getPoint();
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                drawing = true;
+                x = Math.min(mousePress.x, e.getPoint().x);
+                y = Math.min(mousePress.y, e.getPoint().y);
+                width = Math.abs(mousePress.x - e.getPoint().x);
+                height = Math.abs(mousePress.y - e.getPoint().y);
+
+                rect = new Rectangle(x, y, width, height);
+                repaint();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                drawing = false;
+                repaint();
+                System.out.println("x " + x + "y " + y + "width " + width + "height" + height);
+                
+          
+                
+                int response = JOptionPane.showConfirmDialog(null, "Do you want to crop selected image");
+                if (response==JOptionPane.YES_OPTION) {
+                    image = image.getSubimage(x, y, width, height);
+                    SidewalkSketcherGUI.imageDB[0] = image;
+                    SidewalkSketcherGUI.panel1.removeAll();
+                    ImageIcon imageIcon = new ImageIcon(SidewalkSketcherGUI.imageDB[0]);
+                    JLabel label = new JLabel(imageIcon);
+                    SidewalkSketcherGUI.panel1.removeAll();
+                    SidewalkSketcherGUI.panel1.add(label);
+                    SidewalkSketcherGUI.panel1.setBackground(Color.lightGray);
+                    SidewalkSketcherGUI.myframe.setSize(1275, 725);
+                    SidewalkSketcherGUI.myframe.pack();
+                    SidewalkSketcherGUI.myframe.setLocationRelativeTo(null);
+                    SidewalkSketcherGUI.myframe.setResizable(true);
+                    SidewalkSketcherGUI.myframe.setDefaultCloseOperation(EXIT_ON_CLOSE);
+                    SidewalkSketcherGUI.myframe.setVisible(true);
+
+                    System.out.println("Image croped");
+                } else {
+                    SidewalkSketcherGUI.imageDB[0] = image;
+                    SidewalkSketcherGUI.panel1.removeAll();
+                    ImageIcon imageIcon = new ImageIcon(SidewalkSketcherGUI.imageDB[0]);
+                    JLabel label = new JLabel(imageIcon);
+                    SidewalkSketcherGUI.panel1.removeAll();
+                    SidewalkSketcherGUI.panel1.add(label);
+                    SidewalkSketcherGUI.panel1.setBackground(Color.lightGray);
+                    SidewalkSketcherGUI.myframe.setSize(1275, 725);
+                    SidewalkSketcherGUI.myframe.pack();
+                    SidewalkSketcherGUI.myframe.setLocationRelativeTo(null);
+                    SidewalkSketcherGUI.myframe.setResizable(true);
+                    SidewalkSketcherGUI.myframe.setDefaultCloseOperation(EXIT_ON_CLOSE);
+                    SidewalkSketcherGUI.myframe.setVisible(true);
+                }
+
+            }
+
+        }
+
+        private void createAndShowGui() {
+            SidewalkSketcherGUI.panel1.setPreferredSize(new Dimension(1075, 725));
+            
+            SidewalkSketcherGUI.panel1.add(new Crop());
+            SidewalkSketcherGUI.panel1.setBackground(Color.lightGray);
+            SidewalkSketcherGUI.myframe.setSize(1275, 725);
+            SidewalkSketcherGUI.myframe.pack();
+            SidewalkSketcherGUI.myframe.setLocationRelativeTo(null);
+            SidewalkSketcherGUI.myframe.setResizable(true);
+            SidewalkSketcherGUI.myframe.setDefaultCloseOperation(EXIT_ON_CLOSE);
+            SidewalkSketcherGUI.myframe.setVisible(true);
+
+        }
+
+    }
+
+    @Override
     public void actionPerformed(ActionEvent e) {
-	  	image =SidewalkSketcherGUI.imageDB[0];
-	  	ImagePanel im=new ImagePanel(image); 
-		add(im);
-		setSize(600,600); 
-		setVisible(true); 
-		addMouseListener(this); 
-		addMouseMotionListener( this ); 
-		setDefaultCloseOperation(HIDE_ON_CLOSE); 
-		
+        JOptionPane.showMessageDialog(SidewalkSketcherGUI.myframe, "Cropping Function Enabled.");
+        SidewalkSketcherGUI.panel1.removeAll();
+        Crop myCrop = new Crop();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                myCrop.createAndShowGui();
+            }
+        });
+
+    }
 }
-
-}
-
-class ImagePanel extends JPanel {
-
-	  private Image img;
-
-	  public ImagePanel(String img) {
-	    this(new ImageIcon(img).getImage());
-	  }
-
-	  public ImagePanel(Image img) {
-	    this.img = img;
-	    Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
-	    setPreferredSize(size);
-	    setMinimumSize(size);
-	    setMaximumSize(size);
-	    setSize(size);
-	    setLayout(null);
-	  }
-
-	  public void paintComponent(Graphics g) {
-	    g.drawImage(img, 0, 0, null);
-	  }
-
-	}
-
