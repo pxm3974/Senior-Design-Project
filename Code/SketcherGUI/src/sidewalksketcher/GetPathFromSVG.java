@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package sidewalksketcher;
 
 import java.io.IOException;
@@ -13,30 +18,39 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+/**
+ *
+ * @author nibasabin
+ */
 public class GetPathFromSVG {
-
-    public static void main(String args[]) throws XPathExpressionException, ParserConfigurationException, SAXException, IOException {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+  
+    public void path() throws ParserConfigurationException, SAXException, XPathExpressionException, IOException  
+    {
+ 
+          FileInput myPath=new FileInput();
+    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = null;
-
-        builder = factory.newDocumentBuilder();
+         builder = factory.newDocumentBuilder();
         String path= System.getProperty("user.dir");
         String FileName= path+ "/potrace/Image.svg";
         Document document = builder.parse(FileName);
-
-        String xpathExpression = "//path/@d";
+  String xpathExpression = "//path/@d";
         XPathFactory xpf = XPathFactory.newInstance();
         XPath xpath = xpf.newXPath();
         XPathExpression expression = xpath.compile(xpathExpression);
         NodeList svgPaths = (NodeList) expression.evaluate(document, XPathConstants.NODESET);
-        int noOfPath = svgPaths.getLength();
+ int noOfPath = svgPaths.getLength();
         for (int i = 0; i <= noOfPath; i++) {
-
             if (svgPaths.item(i) != null) {
                 System.out.println(svgPaths.item(i).getNodeValue());
+               myPath.path(svgPaths.item(i).getNodeValue());
+                
             }
 
         }
 
     }
 }
+
+    
+

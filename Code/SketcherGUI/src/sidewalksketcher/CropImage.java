@@ -16,17 +16,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import javax.swing.filechooser.FileNameExtensionFilter;
+
 
 /**
  *
@@ -126,7 +122,6 @@ public class CropImage extends JPanel implements ActionListener {
                     SidewalkSketcherGUI.myframe.setResizable(true);
                     SidewalkSketcherGUI.myframe.setDefaultCloseOperation(EXIT_ON_CLOSE);
                     SidewalkSketcherGUI.myframe.setVisible(true);
-
                     System.out.println("Image croped");
                 } else {
                     SidewalkSketcherGUI.imageDB[0] = image;
@@ -150,7 +145,6 @@ public class CropImage extends JPanel implements ActionListener {
 
         private void createAndShowGui() {
             SidewalkSketcherGUI.panel1.setPreferredSize(new Dimension(1075, 725));
-            
             SidewalkSketcherGUI.panel1.add(new Crop());
             SidewalkSketcherGUI.panel1.setBackground(Color.lightGray);
             SidewalkSketcherGUI.myframe.setSize(1275, 725);

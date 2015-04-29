@@ -29,6 +29,7 @@ public class FileBrowser implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         //SidewalkSketcherGUI myGUI= new SidewalkSketcherGUI();
+        SidewalkSketcherGUI.myframe.dispose();
         JFileChooser chooser = new JFileChooser("/Users/nibasabin/Desktop");
         FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF Images", "jpg", "gif", "jpeg","png");
         chooser.setFileFilter(filter);
@@ -48,19 +49,19 @@ public class FileBrowser implements ActionListener {
         
             
    
-            SidewalkSketcherGUI.panel1.add(label);
+            //SidewalkSketcherGUI.panel1.add(label);
             SidewalkSketcherGUI.panel1.removeAll();
             SidewalkSketcherGUI.panel1.add(label);
-            SidewalkSketcherGUI.panel1.setSize(600, 600);
+            SidewalkSketcherGUI.panel1.setSize(1075, 725);
           
-            SidewalkSketcherGUI.myframe.setSize(600, 600);
+          // SidewalkSketcherGUI.myframe.setSize(600, 600);
             SidewalkSketcherGUI.myframe.pack();
             SidewalkSketcherGUI.myframe.setResizable(false);
             SidewalkSketcherGUI.myframe.setDefaultCloseOperation(EXIT_ON_CLOSE);
             SidewalkSketcherGUI.myframe.setVisible(true);
            
 
-            System.out.println("path kjkj" + path);
+           // System.out.println("path kjkj" + path);
 
         }
     }

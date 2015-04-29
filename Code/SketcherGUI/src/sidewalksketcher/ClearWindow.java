@@ -20,9 +20,8 @@ public class ClearWindow extends JFrame implements ActionListener {
         SidewalkSketcherGUI.ColorArray[0]=0;
         SidewalkSketcherGUI.ColorArray[1]=16777215;
         SidewalkSketcherGUI.panel1.removeAll();
-        SidewalkSketcherGUI.panel1.setSize(600, 600);
-
-        SidewalkSketcherGUI.myframe.setSize(600, 600);
+        SidewalkSketcherGUI.panel1.setSize(1075, 725);
+        SidewalkSketcherGUI.myframe.dispose();
         SidewalkSketcherGUI.myframe.pack();
         SidewalkSketcherGUI.myframe.setResizable(false);
         SidewalkSketcherGUI.myframe.setDefaultCloseOperation(EXIT_ON_CLOSE);
