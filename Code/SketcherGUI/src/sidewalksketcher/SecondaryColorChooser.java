@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+Class: SecondaryColorChooser
+Interface: actionPerformed(ActionEvent e)
+Description: Allows user to choose Secondary color for the filtered image and crates new Frame
  */
 package sidewalksketcher;
 
@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 
 /**
  *
- * @author nibasabin
+ * @author Sabin Raj Bajrachrya
  */
 public class SecondaryColorChooser extends JFrame implements ActionListener {
 

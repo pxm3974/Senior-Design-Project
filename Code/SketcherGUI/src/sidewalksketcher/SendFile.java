@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *Class :SendFile
+ * Description: Converts bmp image into svg image and sends instruction file for roomba via wifi;
  */
 package sidewalksketcher;
 
@@ -21,7 +20,7 @@ import org.xml.sax.SAXException;
 
 /**
  *
- * @author nibasabin
+ * @author sabin Raj Bajracharya
  */
 public class SendFile implements ActionListener {
     GetPathFromSVG svgPath= new GetPathFromSVG();

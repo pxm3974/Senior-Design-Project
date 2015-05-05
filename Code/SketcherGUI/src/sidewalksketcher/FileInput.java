@@ -1,3 +1,9 @@
+/*
+ Class: FileInput
+ Methods:path(String),
+ Description: Creates distance and angles from the path that is obtained from SVG File
+ Author: Pranil Maharjan
+ */
 package sidewalksketcher;
 
 import java.util.ArrayList;
@@ -11,13 +17,14 @@ import java.util.*;
 public class FileInput {
 
     static final Matcher matchPoint = Pattern.compile("\\s*(\\d+)[^\\d]+(\\d+)\\s*").matcher("");
-public static void path(String in){
-  
+
+    public static void path(String in) {
+
         final Matcher matchPathCmd = Pattern.compile("([MmLlHhVvAaQqTtCcSsZz])|([-+]?((\\d*\\.\\d+)|(\\d+))([eE][-+]?\\d+)?)").matcher(in);
         Vector<Double> xcor = new Vector<Double>(3, 2);
         Vector<Double> ycor = new Vector<Double>(3, 2);
-      List<Double> distance = new ArrayList(Arrays.asList());
-LinkedList<String> tokens = new LinkedList<String>();
+        List<Double> distance = new ArrayList(Arrays.asList());
+        LinkedList<String> tokens = new LinkedList<String>();
         while (matchPathCmd.find()) {
             tokens.addLast(matchPathCmd.group());
         }
@@ -39,7 +46,7 @@ LinkedList<String> tokens = new LinkedList<String>();
 
             switch (curCmd) {
                 case 'M':
-                    
+
                     xcor.add(nextFloat(tokens));
                     ycor.add(nextFloat(tokens));
                     curCmd = 'L';
@@ -101,15 +108,16 @@ LinkedList<String> tokens = new LinkedList<String>();
                     xcor.add(nextFloat(tokens));
                     ycor.add(nextFloat(tokens));
                     break;
-                case 'C': case 'c':
-                    double point1X=xcor.lastElement();
-                    double point2X=nextFloat(tokens);
-                    double point2Y=nextFloat(tokens);
-                    double point3X=nextFloat(tokens);
-                    double point3Y=nextFloat(tokens);
-                    double point4X=nextFloat(tokens);
-                    double point4Y=nextFloat(tokens);
-                    double point1Y=ycor.lastElement();
+                case 'C':
+                case 'c':
+                    double point1X = xcor.lastElement();
+                    double point2X = nextFloat(tokens);
+                    double point2Y = nextFloat(tokens);
+                    double point3X = nextFloat(tokens);
+                    double point3Y = nextFloat(tokens);
+                    double point4X = nextFloat(tokens);
+                    double point4Y = nextFloat(tokens);
+                    double point1Y = ycor.lastElement();
                     double x,
                      y;
                     double step = 0.01;
@@ -124,7 +132,7 @@ LinkedList<String> tokens = new LinkedList<String>();
                         ycor.add(y);
 
                     }
- break;
+                    break;
                 case 'S':
                     System.out.println(nextFloat(tokens));
                     System.out.println(nextFloat(tokens));
@@ -154,11 +162,11 @@ LinkedList<String> tokens = new LinkedList<String>();
         yarray = ycor.toArray(yarray);
         System.out.println("Start coordinates:");
         for (int a = 0; a < xarray.length; a++) {
-            System.out.print("("+xarray[a] + ",");
-            System.out.print(yarray[a]+")");
+            System.out.print("(" + xarray[a] + ",");
+            System.out.print(yarray[a] + ")");
             System.out.println();
         }
-        
+
         System.out.println("end");
         double prev_angle = 0;
         double new_current_angle = 0;
@@ -176,12 +184,12 @@ LinkedList<String> tokens = new LinkedList<String>();
         System.out.println("**********************");
 
         for (int r = 0; r < xarray.length - 1; r++) {
-distance.add(Math.sqrt((xarray[r] - xarray[r + 1]) * (xarray[r] - xarray[r + 1]) + (yarray[r] - yarray[r + 1]) * (yarray[r] - yarray[r + 1])));
+            distance.add(Math.sqrt((xarray[r] - xarray[r + 1]) * (xarray[r] - xarray[r + 1]) + (yarray[r] - yarray[r + 1]) * (yarray[r] - yarray[r + 1])));
             curr_angle = calcAngle((double) xarray[r], (double) yarray[r], (double) xarray[r + 1], (double) yarray[r + 1]);
             new_current_angle = curr_angle - prev_angle;
             prev_angle = curr_angle;
             System.out.println(new_current_angle + ", " + distance.get(r));
-            writer.println(new_current_angle + ", " + distance.get(r));		
+            writer.println(new_current_angle + ", " + distance.get(r));
         }
         writer.close();
 
@@ -201,12 +209,11 @@ distance.add(Math.sqrt((xarray[r] - xarray[r + 1]) * (xarray[r] - xarray[r + 1])
      *
      *
      */
-
     public static double calcAngle(double point1X, double point1Y, double point2X, double point2Y) {
 
         double xDiff = point2X - point1X;
         double yDiff = point2Y - point1Y;
-        System.out.println("("+point1X+"," + point1Y +")");
+        System.out.println("(" + point1X + "," + point1Y + ")");
         double angle = Math.toDegrees(Math.atan2(yDiff, xDiff));
         return angle;
     }

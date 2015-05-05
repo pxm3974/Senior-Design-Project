@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+Class: PrimaryColorChooser
+Interface: actionPerformed(ActionEvent e)
+Description: Allows user to choose primary color for the filtered image and crates new Frame
  */
 package sidewalksketcher;
 
@@ -12,7 +12,7 @@ import javax.swing.*;
 
 /**
  *
- * @author nibasabin
+ * @author Sabin Raj Bajracharya
  */
 public class PrimaryColorChooser extends JFrame implements ActionListener {
 

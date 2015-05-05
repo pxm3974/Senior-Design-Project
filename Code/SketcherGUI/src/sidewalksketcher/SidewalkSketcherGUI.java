@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Class: SidewalkSketcherGUI
+ * Description: This class creates an user interface with buttons for different functionality.
  */
 package sidewalksketcher;
 
@@ -23,14 +22,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 /**
  *
- * @author nibasabin
+ * @author Sabin Raj Bajracharya
  */
 public class SidewalkSketcherGUI extends JFrame {
-    /*
-    Creates an User Interace with required buttons and options to load image
-    
-    */
-
     public static JFrame myframe;
     public static JButton crop;
     public JMenu File, Help;

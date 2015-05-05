@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Class: GetPathFromSVG
+ * Method: Path()
+ * Description: Gets the path of the vector image.
  */
 package sidewalksketcher;
 
@@ -20,37 +20,35 @@ import org.xml.sax.SAXException;
 
 /**
  *
- * @author nibasabin
+ * @author unknown
+ * Source: StackOverFlow
+ * Modification: Sabin Raj Bajracharya
  */
 public class GetPathFromSVG {
-  
-    public void path() throws ParserConfigurationException, SAXException, XPathExpressionException, IOException  
-    {
- 
-          FileInput myPath=new FileInput();
-    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
+    public void path() throws ParserConfigurationException, SAXException, XPathExpressionException, IOException {
+
+        FileInput myPath = new FileInput();
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = null;
-         builder = factory.newDocumentBuilder();
-        String path= System.getProperty("user.dir");
-        String FileName= path+ "/potrace/Image.svg";
+        builder = factory.newDocumentBuilder();
+        String path = System.getProperty("user.dir");
+        String FileName = path + "/potrace/Image.svg";
         Document document = builder.parse(FileName);
-  String xpathExpression = "//path/@d";
+        String xpathExpression = "//path/@d";
         XPathFactory xpf = XPathFactory.newInstance();
         XPath xpath = xpf.newXPath();
         XPathExpression expression = xpath.compile(xpathExpression);
         NodeList svgPaths = (NodeList) expression.evaluate(document, XPathConstants.NODESET);
- int noOfPath = svgPaths.getLength();
+        int noOfPath = svgPaths.getLength();
         for (int i = 0; i <= noOfPath; i++) {
             if (svgPaths.item(i) != null) {
                 System.out.println(svgPaths.item(i).getNodeValue());
-               myPath.path(svgPaths.item(i).getNodeValue());
-                
+                myPath.path(svgPaths.item(i).getNodeValue());
+
             }
 
         }
 
     }
 }
-
-    
-

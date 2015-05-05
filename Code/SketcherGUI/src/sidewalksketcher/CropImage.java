@@ -1,7 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Class: CropImage,Crop
+ * Methods: Methods inherited from class java.awt.Container,java.awt.Component
+ * Interface: MouseListener, ActionListener
+ * Description: Allows user to crop and image of desired size and creates new JFrame
+
  */
 package sidewalksketcher;
 
@@ -27,6 +29,8 @@ import javax.swing.SwingUtilities;
 /**
  *
  * @author nibasabin
+ * Source: StackOverFlow
+ * http://stackoverflow.com/questions/7822202/drawing-a-rectangle-over-an-existing-graphics-page
  */
 public class CropImage extends JPanel implements ActionListener {
 
@@ -60,7 +64,6 @@ public class CropImage extends JPanel implements ActionListener {
 
         @Override
         protected void paintComponent(Graphics g) {
-            System.out.println("TEST");
             super.paintComponent(g);
             Graphics2D g2 = (Graphics2D) g;
             if (image != null) {

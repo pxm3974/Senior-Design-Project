@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Class: ImageFilter
+ * Methods: Filter(BufferedImage,int, int)
+ * Description: ImageFilter class filters the selected image into two color image and recreates the JFrame
  */
 package sidewalksketcher;
 
@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 
 /**
  *
- * @author nibasabin
+ * @author Sabin Raj Bajracharya
  */
 public class ImageFilter implements ActionListener {
 

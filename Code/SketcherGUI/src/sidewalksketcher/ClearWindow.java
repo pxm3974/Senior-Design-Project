@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Class: ClearWindow
+ * Interface: ActionPerformed(ActionEvent e)
+ * Description: Clears the JPanel and Creates new JFrame
  */
 package sidewalksketcher;
 
@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author nibasabin
+ * @author sabin Raj Bajracharya
  */
 public class ClearWindow extends JFrame implements ActionListener {
     @Override
