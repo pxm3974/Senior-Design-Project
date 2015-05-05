@@ -20,7 +20,7 @@ public class FileInput {
 
     public static void path(String in) {
 
-        final Matcher matchPathCmd = Pattern.compile("([MmLlHhVvAaQqTtCcSsZz])|([-+]?((\\d*\\.\\d+)|(\\d+))([eE][-+]?\\d+)?)").matcher(in);
+       final Matcher matchPathCmd = Pattern.compile("([MmLlHhVvAaQqTtCcSsZz])|([-+]?((\\d*\\.\\d+)|(\\d+))([eE][-+]?\\d+)?)").matcher(in);
         Vector<Double> xcor = new Vector<Double>(3, 2);
         Vector<Double> ycor = new Vector<Double>(3, 2);
         List<Double> distance = new ArrayList(Arrays.asList());
@@ -176,8 +176,12 @@ public class FileInput {
         PrintWriter writer = null;
         prev_angle = calcAngle(0, 0, (double) xarray[0], (double) yarray[0]);
         try {
-            writer = new PrintWriter("/Users/nibasabin/Documents/NetbeansWorkspace/SidewalkSketcher/instruction.txt", "UTF-8");
-        } catch (Exception e) {
+            String directory=System.getProperty("user.dir");
+            directory=directory+"/instruction.txt";
+            System.out.println(directory);
+        	writer = new PrintWriter(directory, "UTF-8");
+        } 
+        catch (Exception e) {
             System.out.println(e);
         }
 

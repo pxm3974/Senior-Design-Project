@@ -33,17 +33,18 @@ public class SendFile implements ActionListener {
         try {
             BufferedImage bi = SidewalkSketcherGUI.imageDB[0];
             File outputfile = new File(currentDirectory+"/potrace/nibasabin.bmp");
-            System.out.println("file should be here");
+           // System.out.println("file should be here");
             ImageIO.write(bi, "bmp", outputfile);
         } catch (Exception f) {
-
+        	//System.out.println("Test 1");
         }
+        
 
   String path = "cd " + currentDirectory + "/potrace\n./potrace -s -o Image.svg nibasabin.bmp";
         try {
             Process p = Runtime.getRuntime().exec(new String[]{"bash", "-c", path});
         } catch (IOException ex) {
-            Logger.getLogger(ImageFilter.class.getName()).log(Level.SEVERE, null, ex);
+          Logger.getLogger(ImageFilter.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
@@ -58,7 +59,7 @@ public class SendFile implements ActionListener {
         } catch (IOException ex) {
             Logger.getLogger(SendFile.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        System.out.println("Test2 ");
         String path1 = "cd " + currentDirectory + "/potrace/\n python client.py";
         Process p = null;
         try {
@@ -68,7 +69,7 @@ public class SendFile implements ActionListener {
         }
 
         BufferedReader buf = new BufferedReader(new InputStreamReader(p.getInputStream()));
-
+System.out.println("Test3");
         String line = " ";
         try {
             while ((line = buf.readLine()) != null) {

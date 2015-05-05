@@ -165,7 +165,7 @@ public class CropImage extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JOptionPane.showMessageDialog(SidewalkSketcherGUI.myframe, "Cropping Function Enabled.");
         SidewalkSketcherGUI.panel1.removeAll();
-        Crop myCrop = new Crop();
+        final Crop myCrop = new Crop();
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 myCrop.createAndShowGui();
