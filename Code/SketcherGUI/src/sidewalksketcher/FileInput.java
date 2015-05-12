@@ -23,6 +23,7 @@ public class FileInput {
        final Matcher matchPathCmd = Pattern.compile("([MmLlHhVvAaQqTtCcSsZz])|([-+]?((\\d*\\.\\d+)|(\\d+))([eE][-+]?\\d+)?)").matcher(in);
         Vector<Double> xcor = new Vector<Double>(3, 2);
         Vector<Double> ycor = new Vector<Double>(3, 2);
+        Vector<String> sketch=new Vector<String>(3,2);
         List<Double> distance = new ArrayList(Arrays.asList());
         LinkedList<String> tokens = new LinkedList<String>();
         while (matchPathCmd.find()) {
@@ -46,39 +47,46 @@ public class FileInput {
 
             switch (curCmd) {
                 case 'M':
-
+                	sketch.add("M");
                     xcor.add(nextFloat(tokens));
                     ycor.add(nextFloat(tokens));
                     curCmd = 'L';
                     break;
                 case 'm':
+                	sketch.add("M");
                     xcor.add(xcor.lastElement() + nextFloat(tokens));
                     ycor.add(ycor.lastElement() + nextFloat(tokens));
                     curCmd = 'l';
                     break;
                 case 'L':
+                	sketch.add("S");
                     xcor.add(nextFloat(tokens));
                     ycor.add(nextFloat(tokens));
                     break;
                 case 'l':
+                	sketch.add("S");
                     xcor.add(xcor.lastElement() + nextFloat(tokens));
                     ycor.add(ycor.lastElement() + nextFloat(tokens));
                     break;
                 case 'H':
+                	sketch.add("S");
                     xcor.add(nextFloat(tokens));
                     ycor.add((Double) ycor.lastElement());
                     break;
                 case 'h':
+                	sketch.add("S");
                     xcor.add(nextFloat(tokens));
                     ycor.add((Double) ycor.lastElement());
                     break;
                 case 'V':
+                	sketch.add("S");
                     xcor.add((Double) xcor.lastElement());
 
                     ycor.add(nextFloat(tokens));
 
                     break;
                 case 'v':
+                	sketch.add("S");
                     xcor.add((Double) xcor.lastElement());
 
                     ycor.add(nextFloat(tokens));
@@ -100,16 +108,19 @@ public class FileInput {
                     System.out.println(nextFloat(tokens));
                     break;
                 case 'T':
+                	sketch.add("S");
                     xcor.add(nextFloat(tokens));
 
                     ycor.add(nextFloat(tokens));
                     break;
                 case 't':
+                	sketch.add("S");
                     xcor.add(nextFloat(tokens));
                     ycor.add(nextFloat(tokens));
                     break;
                 case 'C':
                 case 'c':
+                	
                     double point1X = xcor.lastElement();
                     double point2X = nextFloat(tokens);
                     double point2Y = nextFloat(tokens);
@@ -123,6 +134,7 @@ public class FileInput {
                     double step = 0.01;
 
                     for (double t = 0; t < 1.0; t = t + step) {
+                    	sketch.add("S");
                         x = Math.pow((1 - t), 3) * point1X + 3 * (Math.pow((1 - t), 2) * t) * point2X
                                 + (3 * (1 - t) * Math.pow(t, 2)) * point3X + Math.pow(t, 3) * point4X;
                         xcor.add(x);
@@ -160,6 +172,10 @@ public class FileInput {
 
         Double[] yarray = {};
         yarray = ycor.toArray(yarray);
+        
+        String[] move={};
+        move=sketch.toArray(move);
+        
         System.out.println("Start coordinates:");
         for (int a = 0; a < xarray.length; a++) {
             System.out.print("(" + xarray[a] + ",");
@@ -192,8 +208,9 @@ public class FileInput {
             curr_angle = calcAngle((double) xarray[r], (double) yarray[r], (double) xarray[r + 1], (double) yarray[r + 1]);
             new_current_angle = curr_angle - prev_angle;
             prev_angle = curr_angle;
+           
             System.out.println(new_current_angle + ", " + distance.get(r));
-            writer.println(new_current_angle + ", " + distance.get(r));
+            writer.println(move[r]+ "," + new_current_angle + ", " + distance.get(r));
         }
         writer.close();
 
